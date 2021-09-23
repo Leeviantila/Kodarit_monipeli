@@ -10,17 +10,31 @@ public class CreateJoinAndRoom : MonoBehaviourPunCallbacks
 {
 
     public TMP_InputField createInput;
+    public TMP_InputField joinInput;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+   public void CreateRoom(){
+       // Huoneen luominen nimellä "parametri"
+
+       PhotonNetwork.CreateRoom(createInput.text);
+    
+   } 
+
+    public void JoinRoom(){
+        // Liitytään huoneeseen nimellä "parametri"
+
+        PhotonNetwork.JoinRoom(joinInput.text);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnJoinedRoom()
     {
-        
+        PhotonNetwork.LoadLevel("Game");
+
     }
+
+
+
+
+
 
 }
