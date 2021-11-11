@@ -17,8 +17,13 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 velocity;
     private Vector3 MoveDir;
+    public Animator animator;
 
     [SerializeField] private bool isGround;
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -35,12 +40,17 @@ public class PlayerController : MonoBehaviour
 
         Move();
 
+        Jump();
+
     }
 
     void CheckIfGrounded(){
         //Funktio tarkistaa onko pelaaja maassa
 
         isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        animator.SetBool("OnMaassa", isGround);
+        
 
         if(isGround){
 
@@ -59,14 +69,16 @@ public class PlayerController : MonoBehaviour
         float xAxis = Input.GetAxis("Horizontal");
         float zAxis = Input.GetAxis("Vertical");
 
-        // Toteuttaa if - else rakenteen (boolean muoto)
-        float targetSpeed = Input.GetButton("Fire1") ? runSpeed : moveSpeed;
-
         MoveDir = transform.right * xAxis + transform.forward * zAxis;
+
+        // Toteuttaa if - else rakenteen (boolean muoto)
+        float targetSpeed = Input.GetButton("Fire1") ? runSpeed : moveSpeed;        
 
         if(MoveDir == Vector3.zero){
             targetSpeed = 0;
         }
+
+        animator.SetFloat("Nopeus", targetSpeed);
 
         controller.Move(MoveDir * targetSpeed * Time.deltaTime);
 
@@ -75,6 +87,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void Jump(){
+
+        if(Input.GetButtonDown("Jump") && isGround){
+            
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+
+        }
+
+         velocity.y += gravity * Time.deltaTime;
+         controller.Move(velocity * Time.deltaTime);
+
+        
+        
+
+        
+
+    }
 
 
 }

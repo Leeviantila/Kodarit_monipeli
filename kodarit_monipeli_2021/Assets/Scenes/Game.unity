@@ -471,7 +471,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -496,6 +496,7 @@ MonoBehaviour:
   runSpeed: 14
   jumpHeight: 3
   gravity: -9.81
+  animator: {fileID: 454676178}
   isGround: 0
 --- !u!114 &418610859
 MonoBehaviour:
@@ -514,6 +515,11 @@ MonoBehaviour:
     m_Bits: 1
   canPush: 1
   strength: 1.1
+--- !u!95 &454676178 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
+  m_PrefabInstance: {fileID: 497226022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &497226022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -687,7 +693,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017836932}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 308081c0dc327bb48915d485e9294c43, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -751,7 +757,7 @@ Transform:
   m_GameObject: {fileID: 1017836932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.219475, y: 6.532748, z: -0.073852256}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -799,7 +805,7 @@ GameObject:
   - component: {fileID: 1078972213}
   - component: {fileID: 1078972212}
   - component: {fileID: 1078972211}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: "Kent\xE4nPohja"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
