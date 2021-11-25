@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 velocity;
     private Vector3 MoveDir;
+    PhotonView view;
     public Animator animator;
 
     [SerializeField] private bool isGround;
@@ -30,18 +32,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        view = GetComponent<PhotonView>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(view.IsMine){
+            
         CheckIfGrounded();
-
         Move();
-
         Jump();
-
+            
+        }
+        
+    
     }
 
     void CheckIfGrounded(){
