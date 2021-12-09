@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using Photon.Pun;
+
 
 public class MouseLoop : MonoBehaviour
 {
@@ -13,6 +16,8 @@ public class MouseLoop : MonoBehaviour
     private float mouseY;
     private float xRotation = 0f;
     public CursorLockMode mode;
+    CinemachineVirtualCamera vcam;
+    PhotonView view;
     
 
     
@@ -23,7 +28,13 @@ public class MouseLoop : MonoBehaviour
     {
         Cursor.lockState = mode;
         playerBody = gameObject.transform.parent;
+        view = playerBody.GetComponent<PhotonView>();
+        vcam = GetComponent<CinemachineVirtualCamera>();
 
+        if(!view.IsMine){
+
+            vcam.enabled = false;
+        }
 
     }
 
@@ -31,15 +42,18 @@ public class MouseLoop : MonoBehaviour
     void Update()
     {
         
-        mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if(view.IsMine){
+
+            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, minXAngle, maxXAngle);
+            transform.localRotation = Quaternion.Euler(xRotation,0,0);
+            playerBody.Rotate(Vector3.up * mouseX);
+
+        }
         
-        playerBody.Rotate(Vector3.up * mouseX);
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, minXAngle, maxXAngle);
-        transform.localRotation = Quaternion.Euler(xRotation,0,0);
-
+        
         
         
     }
